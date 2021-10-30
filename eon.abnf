@@ -1,1 +1,32 @@
+;; This document describes eON's syntax, using the ABNF format (defined in
+;; RFC 5234 -- https://www.ietf.org/rfc/rfc5234.txt).
+;;
+;; All valid eON documents will match this description, however certain
+;; invalid documents would need to be rejected as per the semantics described
+;; in the supporting text description.
 
+;; It is possible to try this grammar interactively, using instaparse.
+;;     http://instaparse.mojombo.com/
+;;
+;; To do so, in the lower right, click on Options and change `:input-format` to
+;; ':abnf'. Then paste this entire ABNF document into the grammar entry box
+;; (above the options). Then you can type or paste a sample eON document into
+;; the beige box on the left.
+
+;; Overall Structure
+
+eON-text = object / array / reservoir
+
+;; Object
+open-object = ws %x7B ws ; { left curly bracket
+close-object = ws %x7D ws ; } right curly bracket
+
+;; Array
+open-array = ws %x5B ws ; [ left square bracket
+close-array = ws %x5D ws ; ] right square bracket
+
+;; reservoir
+open-reservoir = ws %x3C ws ; < less-than sign
+close-reservoir = ws %x3E ws ; > greater-than sign
+
+;; 
