@@ -13,6 +13,25 @@
 ;; (above the options). Then you can type or paste a sample eON document into
 ;; the beige box on the left.
 
+;; Document Rule
+;;
+;; NOTICE!
+;; This can be defined before starting any eON text
+;; After opening any kind of brackets, this will be ignored and might cause
+;; error while reading or parsing.
+
+eON-docrule = %x40.40 rules
+rules = ref-Priority / nb-reservoir
+
+ref-priority = \x72.65.66.50.72.69.6f.72.69.74.79 ; refPriority
+;; This is used when multiple referencing from one key/value occures.
+;; If that happens without referencing priority, parser will read them in order as they
+;; are defined.
+
+nb-reservoir = \x6e.6f.42.6c.61.6e.6b.52.65.73 ; noBlankRes
+;; This is used to prevent reservoirs having nothing in them.
+;; If this is defined, having blank reservoirs will cause error.
+
 ;; Overall Structure
 
 eON-text = object / array / reservoir
@@ -36,3 +55,18 @@ ws = *(
      %x0A /              ; Line feed or New line
      %x0D                ; Carriage return
      )
+
+;; Separator
+key-separator = ws %x3A ws ; : colon
+value-separator = ws %x2C ws ; , comma
+
+;; Referencing
+key-reference-bracket = [ refer-priority ] %x7c ; | reference key from value
+value-reference-bracket = %x7c.7c ; || reference value from key
+define-unreferenceable = %x21.7c ws ; !| set as unreferenceable
+
+refer-priority = %x72 int ; referencing priority
+
+
+
+
