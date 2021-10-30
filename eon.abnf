@@ -29,4 +29,10 @@ close-array = ws %x5D ws ; ] right square bracket
 open-reservoir = ws %x3C ws ; < less-than sign
 close-reservoir = ws %x3E ws ; > greater-than sign
 
-;; 
+;; Whitespace
+ws = *(
+     %x20 /              ; Space
+     %x09 /              ; Horizontal tab
+     %x0A /              ; Line feed or New line
+     %x0D                ; Carriage return
+     )
