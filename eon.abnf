@@ -61,11 +61,15 @@ key-separator = ws %x3A ws ; : colon
 value-separator = ws %x2C ws ; , comma
 
 ;; Referencing
-key-reference-bracket = [ refer-priority ] %x7c ; | reference key from value
-value-reference-bracket = %x7c.7c ; || reference value from key
-define-unreferenceable = %x21.7c ws ; !| set as unreferenceable
+refdef-kfv = [ refer-priority ] kfv element kfv ; kfv define
+refdef-vfk = [ refer-priority ] vfp element vfp ; vfk define
+unrefdef = define-urf element kfv ; !|element| unreferenceable
 
-refer-priority = %x72 int ; referencing priority
+kfv = %x7c ; | reference key from value
+vfp = %x7c.7c ; || reference value from key
+define-urf = %x21.7c ws ; !| set as unreferenceable
+
+refer-priority = %x72 int ; referencing priority. shape like r1, r2 etc...
 
 
 
