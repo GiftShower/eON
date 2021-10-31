@@ -61,9 +61,9 @@ key-separator = ws %x3A ws ; : colon
 value-separator = ws %x2C ws ; , comma
 
 ;; Referencing
-refdef-kfv = [ refer-priority ] kfv element kfv ; kfv define
-refdef-vfk = [ refer-priority ] vfp element vfp ; vfk define
-unrefdef = define-urf element kfv ; !|element| unreferenceable
+refdef-kfv = [ refer-priority ] kfv string kfv ; kfv define
+refdef-vfk = [ refer-priority ] vfp string vfp ; vfk define
+unrefdef = define-urf string kfv ; !|element| unreferenceable
 
 kfv = %x7c ; | reference key from value
 vfp = %x7c.7c ; || reference value from key
@@ -71,6 +71,24 @@ define-urf = %x21.7c ws ; !| set as unreferenceable
 
 refer-priority = %x72 int ; referencing priority. shape like r1, r2 etc...
 
+;; Shaping
+kelement = ( string / refdef-kfv / refdef-vfk )
+key = kelement [ *( [ ws ] plus [ ws ] kelement ) ]
 
-
-
+;; Types
+string = quotation-mark *char quotation-mark
+char = unescaped /
+     escape (
+          %x22 /          ; "    quotation mark  U+0022
+          %x5C /          ; \    reverse solidus U+005C
+          %x2F /          ; /    solidus         U+002F
+	     %x62 /          ; b    backspace       U+0008
+	     %x66 /          ; f    form feed       U+000C
+	     %x6E /          ; n    line feed       U+000A
+	     %x72 /          ; r    carriage return U+000D
+	     %x74 /          ; t    tab             U+0009
+	     %x75 4HEXDIG )  ; uXXXX                U+XXXX
+          
+escape = %x5C              ; \
+quotation-mark = %x22      ; "
+unescaped = %x20-21 / %x23-5B / %x5D-10FFFF
