@@ -123,5 +123,5 @@ false = %x66.61.6c.73.65   ; false
 ;; Else
 HEXDIG = DIGIT / %x41-46 / %x61-66   ; 0-9, A-F, or a-f
 	; HEXDIG equivalent to HEXDIG rule in [RFC5234]
- DIGIT = %x30-39            ; 0-9
+DIGIT = %x30-39            ; 0-9
  	; DIGIT equivalent to DIGIT rule in [RFC5234]
