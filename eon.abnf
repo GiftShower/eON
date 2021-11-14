@@ -36,6 +36,14 @@ nb-reservoir = \x6e.6f.42.6c.61.6e.6b.52.65.73 ; noBlankRes
 
 eON-text = object / array / reservoir
 
+member = key key-separator value
+jsonlike = string key-separator ( false / null / true / number / string )
+object = open-object [ member *( value-separator member ) ] close-object
+
+array = open-array [ value *( value-separator value ) ] close-array
+reservoir = open-reservoir [ jsonlike *( value-separator jsonlike ) ] close-reservoir
+
+
 ;; Object
 open-object = ws %x7B ws ; { left curly bracket
 close-object = ws %x7D ws ; } right curly bracket
@@ -74,13 +82,15 @@ refer-priority = %x72 int ; referencing priority. shape like r1, r2 etc...
 ;; Shaping
 kelement = ( string / refdef-kfv / refdef-vfk )
 key = kelement [ *( [ ws ] plus [ ws ] kelement ) ]
-velement = false / null / true / object / array
-vlappend =  number / string / refdef-kfv / refdef-vfk ;; appendable value
 
+velement = false / null / true / object / array / number
+vlappend = int / string / refdef-kfv / refdef-vfk ;; appendable value
 
+value = ( velement / vlappend [ *( [ ws ] plus [ ws ] vlappend ) ] )
 
 ;; Types
 string = quotation-mark *char quotation-mark
+number = [ minus ] int [ frac ] [ exp ]
 char = unescaped /
      escape (
           %x22 /          ; "    quotation mark  U+0022
@@ -92,7 +102,15 @@ char = unescaped /
 	  %x72 /          ; r    carriage return U+000D
 	  %x74 /          ; t    tab             U+0009
 	  %x75 4HEXDIG )  ; uXXXX                U+XXXX
-          
+	  
+demical-point = %x2E       ; .
+digit1-9 = %x31-39         ; 1-9
+e = %x65 / %x45            ; e E
+exp = e [ minus / plus ] 1*DIGIT
+frac = decimal-point 1*DIGIT
+int = zero / ( digit1-9 *DIGIT )
+zero = %x30                ; 0
+
 escape = %x5C              ; \
 quotation-mark = %x22      ; "
 unescaped = %x20-21 / %x23-5B / %x5D-10FFFF
@@ -100,3 +118,12 @@ unescaped = %x20-21 / %x23-5B / %x5D-10FFFF
 ;; Operator
 minus = %x2D    ; -
 plus = %x2B     ; +
+null  = %x6e.75.6c.6c      ; null
+true  = %x74.72.75.65      ; true
+false = %x66.61.6c.73.65   ; false
+
+;; Else
+HEXDIG = DIGIT / %x41-46 / %x61-66   ; 0-9, A-F, or a-f
+	; HEXDIG equivalent to HEXDIG rule in [RFC5234]
+ DIGIT = %x30-39            ; 0-9
+ 	; DIGIT equivalent to DIGIT rule in [RFC5234]
