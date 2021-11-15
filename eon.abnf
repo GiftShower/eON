@@ -15,7 +15,7 @@
 
 ;; Overall Structure
 
-eON-text = [ eON-docrule ws ] object / array / reservoir
+eON-text = [ eON-docrule ws ] [ reservoir ws ] ( object / array )
 
 member = key key-separator value
 jsonlike = string key-separator ( false / null / true / number / string )
