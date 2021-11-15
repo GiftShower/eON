@@ -91,9 +91,9 @@ string = quotation-mark *char quotation-mark
 number = [ minus ] int [ frac ] [ exp ]
 char = unescaped /
      escape (
-          %x22 /          ; "    quotation mark  U+0022
-          %x5C /          ; \    reverse solidus U+005C
-          %x2F /          ; /    solidus         U+002F
+      %x22 /          ; "    quotation mark  U+0022
+      %x5C /          ; \    reverse solidus U+005C
+      %x2F /          ; /    solidus         U+002F
 	  %x62 /          ; b    backspace       U+0008
 	  %x66 /          ; f    form feed       U+000C
 	  %x6E /          ; n    line feed       U+000A
