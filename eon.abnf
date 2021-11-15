@@ -69,22 +69,22 @@ value-separator = ws %x2C ws ; , comma
 ;; Referencing
 refdef-kfv = [ refer-priority ] kfv string kfv ; kfv define
 refdef-vfk = [ refer-priority ] vfp string vfp ; vfk define
-unrefdef = define-urf string kfv ; !|element| unreferenceable
+;; unrefdef = define-urf string kfv ; !|element| unreferenceable
 
 kfv = %x7c ; | reference key from value
 vfp = %x7c.7c ; || reference value from key
-define-urf = %x21.7c ws ; !| set as unreferenceable
+define-urf = %x21.3e.3e ; !>> set as unreferenceable
 
 refer-priority = %x72 int ; referencing priority. shape like r1, r2 etc...
 
 ;; Shaping
 kelement = ( string / refdef-kfv / refdef-vfk / int )
-key = ( kelement [ *( [ ws ] plus [ ws ] kelement ) ] ) / unrefdef
+key =  [ define-urf ] ( kelement [ *( [ ws ] plus [ ws ] kelement ) ] )
 
 velement = false / null / true / object / array / number
 vlappend = int / string / refdef-kfv / refdef-vfk ;; appendable value
 
-value = ( velement / vlappend [ *( [ ws ] plus [ ws ] vlappend ) ] )
+value = [ define-urf ] ( velement / vlappend [ *( [ ws ] plus [ ws ] vlappend ) ] )
 
 ;; Types
 string = quotation-mark *char quotation-mark
