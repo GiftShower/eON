@@ -17,7 +17,6 @@ It is designed to overcome the limitations of JSON while being compatible.
 - Spec
 - Referencing
 - Reservoir
-- Document rule
 ## Spec
 
 ---
