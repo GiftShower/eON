@@ -103,24 +103,4 @@ Same thing in JSON:
 
 **WARNING**: Reservoirs should be defined before root object.
 
-## Document rule
-
 ---
-Document rules can be defined to make eON document JSON-Friendly.
-
-Currently, There are two rules.
-```text
-refPriority: every referencing should have priority defined.
-noBlankRes: eON document is not valid if blank reservoir is defined.
-```
-Rules are case-sensitive.
-
-To define them, place them at the beginning of any eON document
-with the following syntax.
-```text
-@@
-```
-Example:
-```text
-@@refPriority
-```
