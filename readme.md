@@ -11,6 +11,8 @@ By GiftShower_ (Chung Ho Jung)
 eON aims to be an extended version of JSON with its additional syntaxes.
 It is designed to overcome the limitations of JSON while being compatible.
 
+**This project is still work in progress! There are still a lot of things to be done.**
+
 ## Table of contents
 
 ---
