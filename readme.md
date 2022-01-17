@@ -1,13 +1,11 @@
 # eON
 
----
 extended Object Notation Language.
 
 By GiftShower_ (Chung Ho Jung)
 
 ## Objectives
 
----
 eON aims to be an extended version of JSON with its additional syntaxes.
 It is designed to overcome the limitations of JSON while being compatible.
 
@@ -15,13 +13,11 @@ It is designed to overcome the limitations of JSON while being compatible.
 
 ## Table of contents
 
----
 - Spec
 - Referencing
 - Reservoir
 ## Spec
 
----
 - eON is case-sensitive.
 - eON file must be a valid UTF-8 encoded Unicode document.
 - Basic syntax is same as [JSON](https://www.json.org/)
@@ -29,7 +25,6 @@ It is designed to overcome the limitations of JSON while being compatible.
 
 ## Referencing
 
----
 
 ### Basic
 
@@ -84,7 +79,6 @@ Then, you can access references individually with their reference priority.
 
 ## Reservoir
 
----
 Reservoir is a container that can be used to define variables.
 Key/Value pair in Reservoir can't use referencing.
 
