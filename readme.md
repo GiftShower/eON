@@ -1,6 +1,6 @@
 # eON
 
-extended Object Notation Langugae
+extended Object Notation Language
 
 By GiftShower_ (Chung Ho Jung)
 
