@@ -7,7 +7,6 @@ By GiftShower_ (Chung Ho Jung)
 ## Objectives
 
 eON aims to be an extended version of JSON with additional features.
-It is designed to work both as a JSON Formattable document and a programming language.
 
 **This project is still work in progress! There are still a lot of things to be done.**
 
