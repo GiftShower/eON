@@ -1,13 +1,13 @@
 # eON
 
-extended Object Notation Language.
+extended Object Notation Langugae
 
 By GiftShower_ (Chung Ho Jung)
 
 ## Objectives
 
-eON aims to be an extended version of JSON with its additional syntaxes.
-It is designed to overcome the limitations of JSON while being compatible.
+eON aims to be an extended version of JSON with additional features.
+It is designed to work both as a JSON Formattable document and a programming language.
 
 **This project is still work in progress! There are still a lot of things to be done.**
 
