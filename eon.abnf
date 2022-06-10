@@ -15,12 +15,13 @@
 
 ;; Overall Structure
 
-eON-text = [ reservoir ws ] ( object / array )
+eon = [ reservoir ws ] ( object / array )
 
 member = key key-separator value
-jsonlike = string key-separator ( false / null / true / number / string )
-object = open-object [ member *( value-separator member ) ] close-object
+jsonlike = string key-separator ( string / number / object / array / true / false / null )
 
+
+object = open-object [ member *( value-separator member ) ] close-object
 array = open-array [ value *( value-separator value ) ] close-array
 reservoir = open-reservoir [ jsonlike *( value-separator jsonlike ) ] close-reservoir
 
@@ -32,30 +33,31 @@ close-object = ws %x7D ws ; } right curly bracket
 open-array = ws %x5B ws ; [ left square bracket
 close-array = ws %x5D ws ; ] right square bracket
 
-;; reservoir
+;; Reservoir
 open-reservoir = ws %x3C ws ; < less-than sign
 close-reservoir = ws %x3E ws ; > greater-than sign
 
+
 ;; Whitespace
-ws = *(
-     %x20 /              ; Space
-     %x09 /              ; Horizontal tab
-     %x0A /              ; Line feed or New line
-     %x0D                ; Carriage return
-     )
+ws = *( wschar / newline )
+wschar = %x20              ; Space
+wschar =/ %x09              ; Horizontal tab
+   
+newline = %x0A               ; Line feed or New line
+newline =/ %x0D              ; Carriage return
 
 ;; Separator
 key-separator = ws %x3A ws ; : colon
 value-separator = ws %x2C ws ; , comma
 
 ;; Referencing
-refdef-kfv = [ refer-priority ] kfv string kfv ; kfv define
-refdef-vfk = [ refer-priority ] vfp string vfp ; vfk define
-;; unrefdef = define-urf string kfv ; !|element| unreferenceable
+refdef-kfv = [ refer-priority ] kfv string kfv ; key from value
+refdef-vfk = [ refer-priority ] vfp string vfp ; value from key
 
-kfv = %x7c ; | reference key from value
-vfp = %x7c.7c ; || reference value from key
-define-urf = %x21.3e.3e ; !>> set as unreferenceable
+kfv = %x7C ; | reference key from value
+vfp = %x7C.7C ; || reference value from key
+
+define-urf = %x21.3E.3E ; !>> set as unreferenceable
 
 refer-priority = %x72 int ; referencing priority. shape like r1, r2 etc...
 
@@ -64,7 +66,9 @@ kelement = ( string / refdef-kfv / refdef-vfk / int )
 key =  [ define-urf ] ( kelement [ *( [ ws ] plus [ ws ] kelement ) ] )
 
 velement = false / null / true / object / array / number
-vlappend = int / string / refdef-kfv / refdef-vfk ;; appendable value
+vlappend = int / string / refdef-kfv / refdef-vfk
+;; vlappend is appending in value. referencing should only return int or string!
+
 
 value = [ define-urf ] ( velement / vlappend [ *( [ ws ] plus [ ws ] vlappend ) ] )
 
